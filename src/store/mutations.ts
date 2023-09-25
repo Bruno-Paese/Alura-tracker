@@ -1,0 +1,5 @@
+export const ADDPROJECT = 'ADDPROJECT';
+export const ALTERPROJECT = 'ALTERPROJECT';
+export const DELETEPROJECT = 'DELETEPROJECT';
+
+export const NOTIFY = 'NOTIFY';
