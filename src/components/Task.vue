@@ -1,6 +1,6 @@
 <template>
 	<BoxComponent>
-		<div class="columns">
+		<div class="columns clicavel" @click="clicked">
 			<div class="column is-4">
 				{{ task.description || 'Tarefa sem descrição' }}
 			</div>
@@ -21,19 +21,32 @@ import BoxComponent from './BoxComponent.vue';
 
 
 export default defineComponent({
-    name: 'TaskComponent',
+	name: 'TaskComponent',
+	emits: ['clicked'],
 	props: {
 		task: {
 			type: Object as PropType<ITarefa>,
 			required: true
 		}
 	},
-    components: { TimeDisplay, BoxComponent }
+	components: { TimeDisplay, BoxComponent },
+	setup(props, {emit}) {
+		const clicked = () => {
+			emit('clicked', props.task);
+		}
+
+		return {
+			clicked
+		}
+	}
 });
 </script>
 
 <style scoped>
 .box {
 	background: #faf0ca
+}
+.clicavel:hover {
+	cursor: pointer;
 }
 </style>
