@@ -25,7 +25,7 @@
 	</div>
 </template>
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import ActivityTimer from './ActivityTimer.vue';
 import { useStore } from 'vuex';
 import { key } from '@/store';
@@ -37,37 +37,38 @@ export default defineComponent({
 	name: 'ActivityForm',
 	emits: ['saveTask'],
 	mixins: [notifyMixin],
-	data() {
-		return {
-			description: '',
-			idProjeto: ''
-		}
-	},
 	components: {
 		ActivityTimer
 	},
-	methods: {
-		finalizarTarefa(time: number): void {
-			const projeto = this.projetos.find((proj: IProjeto) => proj.id == this.idProjeto);
+
+	setup(props, { emit }) {
+		const store = useStore(key);
+		const projetos = computed(() => store.state.projeto.projetos);
+
+		const description = ref('');
+		const idProjeto = ref('');
+
+		const finalizarTarefa = (time: number) => {
+			const projeto = projetos.value.find((proj: IProjeto) => proj.id == idProjeto.value);
 
 			if (!projeto) {
-				this.notify(TipoNotificacao.FALHA, 'Erro', 'Não foi possível salvar a tarefa sem vincular a um projeto')
+				// notify(TipoNotificacao.FALHA, 'Erro', 'Não foi possível salvar a tarefa sem vincular a um projeto')
 				return;
 			}
 
-			this.$emit('saveTask', {
+			emit('saveTask', {
 				duration: time,
-				description: this.description,
+				description: description.value,
 				projeto: projeto
 			})
-			this.description = '';
+			description.value = '';
 		}
-	},
-	setup() {
-		const store = useStore(key);
+
 		return {
-			store,
-			projetos: computed(() => store.state.projetos)
+			description,
+			idProjeto,
+			projetos,
+			finalizarTarefa
 		}
 	}
 })

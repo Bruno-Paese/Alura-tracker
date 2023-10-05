@@ -1,5 +1,10 @@
 export const ADDPROJECT = 'ADDPROJECT';
 export const ALTERPROJECT = 'ALTERPROJECT';
 export const DELETEPROJECT = 'DELETEPROJECT';
+export const DEFINEPROJECT = 'DEFINEPROJECT'
+
+export const DEFINETASKS = 'DEFINETASKS'
+export const ADDTASK = 'ADDTASK'
+export const ALTERTASK = 'ALTERTASK'
 
 export const NOTIFY = 'NOTIFY';
