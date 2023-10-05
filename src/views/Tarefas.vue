@@ -6,7 +6,7 @@
 				<Task v-for="(task, i) in tarefas" :key="i" :task="task"></Task>
 			</div>
 			<BoxComponent v-if="tarefas.length == 0">
-				Você não fez nada hoje :(
+				Você não executou nenhuma atividade nada hoje :(
 			</BoxComponent>
 		</div>
 
