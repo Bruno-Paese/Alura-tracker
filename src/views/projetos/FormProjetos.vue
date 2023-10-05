@@ -44,7 +44,10 @@ export default defineComponent({
 	methods: {
 		salvar() {
 			if (!this.id) {
-				this.store.commit(ADDPROJECT, this.nomeProjeto);
+				this.store.commit(
+				ADDPROJECT,
+				this.nomeProjeto
+			);
 			} else {
 				this.store.commit(ALTERPROJECT, {
 					id: this.id,
@@ -52,7 +55,10 @@ export default defineComponent({
 				});
 			}
 
-			this.notify(TipoNotificacao.SUCESSO, 'Novo projeto salvo', 'Salvou mesmo, pode confiar :D')
+			this.notify(
+				TipoNotificacao.SUCESSO,
+				'Novo projeto salvo', 'Salvou mesmo, pode confiar :D'
+			);
 
 			this.nomeProjeto = '';
 			this.$router.push('/projetos');
